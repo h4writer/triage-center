@@ -138,6 +138,34 @@ function setup_queries() {
   document.getElementById("triage-list").href = "https://bugzilla.mozilla.org/buglist.cgi?" + to_triage.toString();
   populate_table($("#need-decision"), to_triage, $("#need-decision-marker"), !!selected.length);
 
+  var need_perfbug = make_search({
+    f1: "blocked",
+    o1: "notsubstring",
+    v1: "1307062",
+    f2: "keywords",
+    o2: "substring",
+    v2: "perf",
+    priority: ["P1","P2","P3"],
+    resolution: "---",
+    query_format: "advanced",
+  }, common_params);
+  document.getElementById("perfbug-list").href = "https://bugzilla.mozilla.org/buglist.cgi?" + need_perfbug.toString();
+  populate_table($("#need-perfbug"), need_perfbug, $("#need-perfbug-marker"), !!selected.length);
+
+  var need_perfkeyword = make_search({
+    f1: "blocked",
+    o1: "substring",
+    v1: "1307062",
+    f2: "keywords",
+    o2: "notsubstring",
+    v2: "perf",
+    priority: ["P1","P2","P3"],
+    resolution: "---",
+    query_format: "advanced",
+  }, common_params);
+  document.getElementById("perfkeyword-list").href = "https://bugzilla.mozilla.org/buglist.cgi?" + need_perfkeyword.toString();
+  populate_table($("#need-perfkeyword"), need_perfkeyword, $("#need-perfkeyword-marker"), !!selected.length);
+
   var stale_needinfo = make_search({
     f1: "flagtypes.name",
     o1: "substring",
