@@ -32,6 +32,8 @@ function get_components() {
 function selected_from_url() {
   var sp = new URLSearchParams(window.location.search);
   var components = new Set(sp.getAll("component"));
+  if (components.size == 0)
+      components = new Set(["Core:JavaScript Engine: JIT"]);
   gComponents.forEach(function(c) {
     var test = c.product_name + ":" + c.component_name;
     c.selected = components.has(test);
